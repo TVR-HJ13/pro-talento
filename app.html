@@ -1,0 +1,356 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#F2EBDD">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Pro Talento">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<title>Pro Talento</title>
+<style>
+:root{--beige:#F2EBDD;--beige-2:#E8DEC9;--card:#FBF7EF;--navy:#15264A;--ink:#15264A;--muted:#58627A;--line:rgba(21,38,74,0.16);--warm:#F3DCCB;--warm-ink:#8A3B1B;--accent:#B5562E;--on-navy-muted:#C5CDDD}
+*{box-sizing:border-box}
+h1,h2,h3,p,dl,dd,dt{margin:0}
+html,body{margin:0;background:var(--beige);color:var(--ink);font-family:Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer;text-align:inherit}
+svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.splash{position:fixed;inset:0;z-index:50;background:var(--beige);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;transition:opacity .5s ease,visibility .5s ease}
+.splash.out{opacity:0;visibility:hidden}
+.splash svg.logo{width:132px;height:132px;stroke:none}
+.splash p{font-weight:700;font-size:20px;letter-spacing:-0.01em}
+.app{max-width:440px;margin:0 auto;min-height:100vh;min-height:100dvh;padding-bottom:96px}
+.topbar{position:sticky;top:0;z-index:10;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 18px;background:var(--beige)}
+.brand{display:flex;align-items:center;gap:8px;font-weight:700;font-size:18px}
+.mini{width:20px;height:20px;border-radius:6px;background:var(--navy);position:relative}
+.mini::after{content:"";position:absolute;left:5px;top:5px;width:10px;height:10px;border-radius:50%;background:var(--beige)}
+.switch{display:flex;align-items:center;gap:8px;padding:5px 12px 5px 5px;border-radius:999px;background:var(--card);box-shadow:inset 0 0 0 1px var(--line);font-size:14px;font-weight:700}
+.switch svg{width:18px;height:18px}
+.avatar{width:30px;height:30px;flex:0 0 30px;border-radius:50%;background:var(--navy);color:var(--beige);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px}
+.avatar.big{width:52px;height:52px;flex-basis:52px;font-size:20px}
+.screen{padding:4px 18px 24px}
+.screen > *{animation:rise .35s ease both}
+@keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.hello{font-size:26px;font-weight:700;letter-spacing:-0.02em;margin:6px 0 16px}
+.hero-card{background:var(--navy);color:var(--beige);border-radius:18px;padding:20px;margin-bottom:14px}
+.hero-card h2{font-size:22px;line-height:1.2;margin:8px 0 6px}
+.hero-card p{color:var(--beige-2);font-size:15px;line-height:1.4;margin:0 0 6px}
+.hero-card .small{color:var(--on-navy-muted)}
+.kicker{font-size:13px;font-weight:700;color:var(--beige-2)}
+.small{font-size:13px;color:var(--muted)}
+.bar{display:block;height:8px;border-radius:99px;background:var(--beige-2);overflow:hidden;margin-top:12px}
+.bar i{display:block;height:100%;background:var(--navy);border-radius:99px}
+.hero-card .bar{background:rgba(242,235,221,0.2)}
+.hero-card .bar i{background:var(--beige)}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:6px}
+.stat{background:var(--card);border-radius:14px;padding:12px;box-shadow:inset 0 0 0 1px var(--line)}
+.stat span{display:block;font-size:12px;color:var(--muted);margin-bottom:6px}
+.stat b{font-size:15px;line-height:1.2}
+.section{font-size:17px;font-weight:700;margin:22px 0 8px}
+.list{background:var(--card);border-radius:16px;box-shadow:inset 0 0 0 1px var(--line);overflow:hidden}
+.item{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;padding:14px 16px;border-bottom:1px solid var(--line)}
+.item:last-child{border-bottom:0}
+.item-main{display:flex;flex-direction:column;gap:3px;min-width:0}
+.item-main b{font-size:15px}
+.item-main small{font-size:13px;color:var(--muted)}
+.chip{display:inline-block;padding:5px 10px;border-radius:999px;background:var(--beige-2);font-size:12px;font-weight:700;white-space:nowrap;color:var(--ink)}
+.chip.warm{background:var(--warm);color:var(--warm-ink)}
+.chip.dark{background:var(--navy);color:var(--beige)}
+.card{background:var(--card);border-radius:16px;box-shadow:inset 0 0 0 1px var(--line);padding:16px}
+.row-card{display:flex;flex-direction:column;gap:8px;width:100%;margin-bottom:10px;text-align:left}
+.row-head{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.row-head b{font-size:15px}
+.perfil-head{display:flex;align-items:center;gap:12px;margin-bottom:8px}
+.perfil-head b{display:block;font-size:17px}
+dl{margin:12px 0 0}
+dl > div{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid var(--line);font-size:15px}
+dl > div:last-child{border-bottom:0}
+dt{color:var(--muted)}
+dd{font-weight:700;text-align:right}
+.note{font-size:13px;line-height:1.5;color:var(--muted);margin:14px 2px 0}
+.tabs{position:fixed;left:50%;transform:translateX(-50%);bottom:0;width:100%;max-width:440px;display:grid;grid-template-columns:repeat(4,1fr);gap:4px;background:var(--card);box-shadow:inset 0 1px 0 var(--line);padding:8px 8px calc(8px + env(safe-area-inset-bottom));z-index:10}
+.tab{display:flex;flex-direction:column;align-items:center;gap:4px;padding:6px 0;font-size:12px;color:var(--muted);border-radius:12px}
+.tab[aria-current="page"]{color:var(--navy);font-weight:700}
+.tab[aria-current="page"] svg{stroke-width:2.2}
+.sheet-back{position:fixed;inset:0;background:rgba(21,38,74,0.35);z-index:20;display:none}
+.sheet-back.open{display:block}
+.sheet{position:fixed;left:50%;bottom:0;transform:translateX(-50%);width:100%;max-width:440px;background:var(--card);border-radius:20px 20px 0 0;padding:18px 18px calc(22px + env(safe-area-inset-bottom));z-index:21;display:none;max-height:85vh;overflow:auto}
+.sheet.open{display:block;animation:up .3s ease both}
+@keyframes up{from{transform:translate(-50%,24px);opacity:0}to{transform:translate(-50%,0);opacity:1}}
+.sheet h3{font-size:20px;margin:0 0 10px}
+.acct{display:flex;align-items:center;gap:12px;width:100%;padding:12px;border-radius:14px;box-shadow:inset 0 0 0 1px var(--line);margin-bottom:10px}
+.acct[aria-pressed="true"]{box-shadow:inset 0 0 0 2px var(--navy);background:#FFFDF8}
+.acct b{display:block;font-size:15px}
+.acct small{color:var(--muted);font-size:13px}
+.btn-dark{display:block;width:100%;margin-top:16px;padding:14px;border-radius:12px;background:var(--navy);color:var(--beige);font-weight:700;font-size:16px;text-align:center}
+</style>
+</head>
+<body>
+<div class="splash" id="splash" aria-hidden="true">
+<svg class="logo" viewBox="0 0 120 120"><rect width="120" height="120" rx="26" fill="#15264A"/><circle cx="60" cy="60" r="26" fill="#F2EBDD"/></svg>
+<p>Pro Talento</p>
+</div>
+<div class="app">
+<header class="topbar">
+<div class="brand"><span class="mini"></span>Pro Talento</div>
+<button class="switch" id="switch" type="button" aria-label="Cambiar de cuenta"><span class="avatar" id="avatar">M</span><span id="switch-label">Estudiante</span><svg viewBox="0 0 24 24"><path d="M4 8h13l-3-3"/><path d="M20 16H7l3 3"/></svg></button>
+</header>
+<main class="screen" id="screen"></main>
+</div>
+<nav class="tabs" aria-label="Principal">
+<button class="tab" type="button" data-tab="inicio" aria-current="page"><svg viewBox="0 0 24 24"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/></svg>Inicio</button>
+<button class="tab" type="button" data-tab="proyectos" aria-current="false"><svg viewBox="0 0 24 24"><path d="M3 6h6l2 2h10v11H3z"/></svg>Proyectos</button>
+<button class="tab" type="button" data-tab="pagos" aria-current="false"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18"/></svg>Pagos</button>
+<button class="tab" type="button" data-tab="perfil" aria-current="false"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-6 8-6s8 2 8 6"/></svg>Perfil</button>
+</nav>
+<div class="sheet-back" id="back"></div>
+<div class="sheet" id="sheet" role="dialog" aria-modal="true"></div>
+<script>
+const DATA = {
+estudiante: {
+etiqueta: 'Estudiante',
+nombre: 'Mariana López',
+sub: 'Administración · CUCEA',
+horas: { semana: 12, meta: 15 },
+constancias: 1,
+proyectos: [
+{ nombre: 'Análisis de competencia local', otro: 'Papelería Monte Verde', estado: 'En curso', avance: 60, dias: 6, horas: 12, honorarios: 1000, pago: 'En custodia' },
+{ nombre: 'Modelo financiero básico', otro: 'Taller Ruiz', estado: 'Por revisar', avance: 90, dias: 3, horas: 15, honorarios: 2000, pago: 'En custodia' },
+{ nombre: 'Plan de redes sociales', otro: 'Café Aroma', estado: 'Completado', avance: 100, dias: -8, horas: 10, honorarios: 1000, pago: 'Liberado' }
+],
+perfil: [
+['Kárdex', 'Verificado'],
+['Área', 'Administración'],
+['Horas por semana', '10 a 15'],
+['Constancias', '1']
+],
+aviso: 'Demostración con datos ilustrativos: la estudiante, las empresas y los montos son ficticios.'
+},
+empresa: {
+etiqueta: 'Empresa',
+nombre: 'Papelería Monte Verde',
+sub: 'Papelería · Guadalajara, Jalisco',
+proyectos: [
+{ nombre: 'Análisis de competencia local', otro: 'Mariana López', estado: 'En curso', avance: 60, dias: 6, horas: 12, honorarios: 1000, pago: 'En custodia' },
+{ nombre: 'Diseño de identidad visual', otro: 'Diego Herrera', estado: 'Por revisar', avance: 100, dias: 4, horas: 10, honorarios: 2000, pago: 'En custodia' }
+],
+perfil: [
+['Sector', 'Papelería'],
+['Proyectos publicados', '2'],
+['Cuenta', 'Verificada'],
+['Ubicación', 'Guadalajara, Jalisco']
+],
+aviso: 'Demostración con datos ilustrativos: la empresa, los estudiantes y los montos son ficticios.'
+}
+};
+
+let mode = 'estudiante';
+let tab = 'inicio';
+
+const $ = (id) => document.getElementById(id);
+const fmt = (n) => '$' + n.toLocaleString('es-MX') + ' MXN';
+const comision = (h) => Math.max(Math.round(h * 0.15), 250);
+const fecha = (n) => {
+const d = new Date();
+d.setDate(d.getDate() + n);
+return d.toLocaleDateString('es-MX', { day: 'numeric', month: 'long' });
+};
+const ordenar = (arr) => [...arr].sort((a, b) => a.nombre.localeCompare(b.nombre, 'es'));
+const chipClase = (e) => e === 'Por revisar' ? 'chip warm' : e === 'Completado' ? 'chip dark' : 'chip';
+const etiquetaOtro = () => mode === 'estudiante' ? 'Empresa' : 'Estudiante';
+const suma = (arr, campo) => arr.reduce((s, p) => s + p[campo], 0);
+
+function listaProyectos(arr) {
+return arr.map((p) => `<button class="item" type="button" data-proyecto="${p.nombre}">
+<span class="item-main"><b>${p.nombre}</b><small>${p.otro} · ${fmt(p.honorarios)}</small></span>
+<span class="${chipClase(p.estado)}">${p.estado}</span>
+</button>`).join('');
+}
+
+function inicioEstudiante() {
+const d = DATA.estudiante;
+const activos = d.proyectos.filter((p) => p.estado !== 'Completado');
+const sig = [...activos].sort((a, b) => a.dias - b.dias)[0];
+const custodia = suma(d.proyectos.filter((p) => p.pago === 'En custodia'), 'honorarios');
+return `<h1 class="hello">Hola, ${d.nombre.split(' ')[0]}</h1>
+<div class="hero-card">
+<div class="kicker">Próxima entrega</div>
+<h2>${sig.nombre}</h2>
+<p>${sig.otro} · ${fecha(sig.dias)}</p>
+<div class="bar"><i style="width:${sig.avance}%"></i></div>
+<p class="small">Quedan ${sig.dias} días · ${sig.avance} % de avance</p>
+</div>
+<div class="stats">
+<div class="stat"><span>Horas esta semana</span><b>${d.horas.semana} de ${d.horas.meta}</b></div>
+<div class="stat"><span>En custodia</span><b>${fmt(custodia)}</b></div>
+<div class="stat"><span>Constancias</span><b>${d.constancias}</b></div>
+</div>
+<h2 class="section">Proyectos activos</h2>
+<div class="list">${listaProyectos(ordenar(activos))}</div>`;
+}
+
+function inicioEmpresa() {
+const d = DATA.empresa;
+const revision = d.proyectos.find((p) => p.estado === 'Por revisar');
+const enCurso = d.proyectos.filter((p) => p.estado === 'En curso').length;
+const custodia = suma(d.proyectos.filter((p) => p.pago === 'En custodia'), 'honorarios');
+const comisiones = d.proyectos.reduce((s, p) => s + comision(p.honorarios), 0);
+return `<h1 class="hello">${d.nombre}</h1>
+<div class="hero-card">
+<div class="kicker">Pendiente de tu aprobación</div>
+<h2>${revision.nombre}</h2>
+<p>${revision.otro} entregó el trabajo.</p>
+<p class="small">Tienes ${revision.dias} días para revisarlo y aprobarlo o pedir correcciones.</p>
+</div>
+<div class="stats">
+<div class="stat"><span>En curso</span><b>${enCurso}</b></div>
+<div class="stat"><span>En custodia</span><b>${fmt(custodia)}</b></div>
+<div class="stat"><span>Comisiones</span><b>${fmt(comisiones)}</b></div>
+</div>
+<h2 class="section">Proyectos publicados</h2>
+<div class="list">${listaProyectos(ordenar(d.proyectos))}</div>`;
+}
+
+function proyectos() {
+const tarjetas = ordenar(DATA[mode].proyectos).map((p) => `<button class="card row-card" type="button" data-proyecto="${p.nombre}">
+<span class="row-head"><b>${p.nombre}</b><span class="${chipClase(p.estado)}">${p.estado}</span></span>
+<small class="small">${etiquetaOtro()}: ${p.otro} · ${fmt(p.honorarios)}</small>
+<span class="bar"><i style="width:${p.avance}%"></i></span>
+<small class="small">${p.estado === 'Completado' ? 'Concluido' : 'Quedan ' + p.dias + ' días'}</small>
+</button>`).join('');
+return `<h1 class="hello">Proyectos</h1>${tarjetas}`;
+}
+
+function pagosEstudiante() {
+const d = DATA.estudiante;
+const custodia = suma(d.proyectos.filter((p) => p.pago === 'En custodia'), 'honorarios');
+const liberado = suma(d.proyectos.filter((p) => p.pago === 'Liberado'), 'honorarios');
+const filas = ordenar(d.proyectos).map((p) => `<div class="item">
+<span class="item-main"><b>${p.nombre}</b><small>${p.otro} · ${fmt(p.honorarios)}</small></span>
+<span class="${p.pago === 'Liberado' ? 'chip dark' : 'chip'}">${p.pago}</span>
+</div>`).join('');
+return `<h1 class="hello">Pagos</h1>
+<div class="stats">
+<div class="stat"><span>En custodia</span><b>${fmt(custodia)}</b></div>
+<div class="stat"><span>Liberado</span><b>${fmt(liberado)}</b></div>
+<div class="stat"><span>Total</span><b>${fmt(custodia + liberado)}</b></div>
+</div>
+<div class="list">${filas}</div>
+<p class="note">Los pagos se liberan cuando la empresa aprueba la entrega. La empresa tiene 5 días hábiles para revisar y 3 días para pedir correcciones.</p>`;
+}
+
+function pagosEmpresa() {
+const d = DATA.empresa;
+const honorarios = suma(d.proyectos, 'honorarios');
+const comisiones = d.proyectos.reduce((s, p) => s + comision(p.honorarios), 0);
+const filas = ordenar(d.proyectos).map((p) => `<div class="item">
+<span class="item-main"><b>${p.nombre}</b><small>Honorarios ${fmt(p.honorarios)} · Comisión ${fmt(comision(p.honorarios))}</small></span>
+<span class="chip">${fmt(p.honorarios + comision(p.honorarios))}</span>
+</div>`).join('');
+return `<h1 class="hello">Pagos</h1>
+<div class="stats">
+<div class="stat"><span>Honorarios</span><b>${fmt(honorarios)}</b></div>
+<div class="stat"><span>Comisiones</span><b>${fmt(comisiones)}</b></div>
+<div class="stat"><span>Total pagado</span><b>${fmt(honorarios + comisiones)}</b></div>
+</div>
+<div class="list">${filas}</div>
+<p class="note">Al contratar se paga el total de honorarios más la comisión de 15 % con mínimo de $250 MXN. Los honorarios quedan en custodia hasta que apruebes la entrega.</p>`;
+}
+
+function perfil() {
+const d = DATA[mode];
+const filas = d.perfil.map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join('');
+return `<h1 class="hello">Perfil</h1>
+<div class="card">
+<div class="perfil-head"><span class="avatar big">${d.nombre.charAt(0)}</span><div><b>${d.nombre}</b><small class="small">${d.sub}</small></div></div>
+<dl>${filas}</dl>
+</div>
+<p class="note">${d.aviso}</p>`;
+}
+
+const pantallas = {
+inicio: () => mode === 'estudiante' ? inicioEstudiante() : inicioEmpresa(),
+proyectos: () => proyectos(),
+pagos: () => mode === 'estudiante' ? pagosEstudiante() : pagosEmpresa(),
+perfil: () => perfil()
+};
+
+function pintar() {
+$('switch-label').textContent = DATA[mode].etiqueta;
+$('avatar').textContent = DATA[mode].nombre.charAt(0);
+$('screen').innerHTML = pantallas[tab]();
+document.querySelectorAll('.tab').forEach((b) => b.setAttribute('aria-current', b.dataset.tab === tab ? 'page' : 'false'));
+}
+
+function abrirHoja(html) {
+$('sheet').innerHTML = html;
+$('sheet').classList.add('open');
+$('back').classList.add('open');
+}
+
+function cerrarHoja() {
+$('sheet').classList.remove('open');
+$('back').classList.remove('open');
+}
+
+function abrirCambio() {
+const opciones = ['estudiante', 'empresa'].map((m) => `<button class="acct" type="button" data-modo="${m}" aria-pressed="${mode === m}">
+<span class="avatar">${DATA[m].nombre.charAt(0)}</span>
+<span><b>${DATA[m].etiqueta}</b><small>${DATA[m].nombre}</small></span>
+</button>`).join('');
+abrirHoja(`<h3>Cambiar de cuenta</h3>${opciones}<p class="note">Cambiar de cuenta actualiza todas las pantallas. Los datos son ilustrativos.</p>`);
+}
+
+function abrirDetalle(nombre) {
+const p = DATA[mode].proyectos.find((x) => x.nombre === nombre);
+if (!p) return;
+abrirHoja(`<h3>${p.nombre}</h3>
+<p class="small">${etiquetaOtro()}: ${p.otro}</p>
+<div class="bar"><i style="width:${p.avance}%"></i></div>
+<dl>
+<div><dt>Estado</dt><dd>${p.estado}</dd></div>
+<div><dt>Plazo</dt><dd>${p.estado === 'Completado' ? 'Concluido' : fecha(p.dias)}</dd></div>
+<div><dt>Horas por semana</dt><dd>${p.horas}</dd></div>
+<div><dt>Honorarios</dt><dd>${fmt(p.honorarios)}</dd></div>
+${mode === 'empresa' ? `<div><dt>Comisión de Pro Talento</dt><dd>${fmt(comision(p.honorarios))}</dd></div>` : ''}
+<div><dt>Pago</dt><dd>${p.pago}</dd></div>
+</dl>
+<button class="btn-dark" type="button" data-cerrar>Cerrar</button>`);
+}
+
+$('switch').addEventListener('click', abrirCambio);
+$('back').addEventListener('click', cerrarHoja);
+
+document.querySelectorAll('.tab').forEach((b) => {
+b.addEventListener('click', () => {
+tab = b.dataset.tab;
+pintar();
+window.scrollTo(0, 0);
+});
+});
+
+$('screen').addEventListener('click', (e) => {
+const el = e.target.closest('[data-proyecto]');
+if (el) abrirDetalle(el.dataset.proyecto);
+});
+
+$('sheet').addEventListener('click', (e) => {
+const m = e.target.closest('[data-modo]');
+if (m) {
+mode = m.dataset.modo;
+cerrarHoja();
+pintar();
+window.scrollTo(0, 0);
+return;
+}
+if (e.target.closest('[data-cerrar]')) cerrarHoja();
+});
+
+pintar();
+setTimeout(() => $('splash').classList.add('out'), 1600);
+setTimeout(() => $('splash').remove(), 2300);
+</script>
+</body>
+</html>
