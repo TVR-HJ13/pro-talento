@@ -1,0 +1,351 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Pro Talento conecta a PYMES con estudiantes de CUCEA para proyectos reales.">
+<meta name="theme-color" content="#15264A">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Pro Talento">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<title>Pro Talento</title>
+<style>
+:root{--beige:#F2EBDD;--beige-2:#E8DEC9;--card:#FBF7EF;--navy:#15264A;--navy-2:#213763;--ink:#15264A;--muted:#58627A;--on-navy:#F2EBDD;--on-navy-muted:#C5CDDD;--line:rgba(21,38,74,0.16);--accent:#B5562E}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--beige);color:var(--ink);font-family:Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+button,input,select{font:inherit}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.top{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;padding:16px 24px;background:var(--beige);border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:20px;letter-spacing:-0.01em}
+.mark{width:22px;height:22px;border-radius:6px;background:var(--navy);position:relative}
+.mark::after{content:"";position:absolute;left:6px;top:6px;width:10px;height:10px;border-radius:50%;background:var(--beige)}
+.nav{display:flex;flex-wrap:wrap;gap:6px}
+.nav-item{color:var(--muted);padding:9px 14px;border-radius:999px;font-size:15px}
+.nav-item[aria-current="page"]{background:var(--navy);color:var(--beige);font-weight:700}
+.view{display:none}
+.view.active{display:block}
+.band{padding:72px 24px;background:var(--beige);color:var(--ink)}
+.band.navy{background:var(--navy);color:var(--on-navy)}
+.band.hero{padding:96px 24px 88px}
+.wrap{max-width:1080px;margin:0 auto}
+h1{font-size:clamp(34px,5vw,60px);line-height:1.05;letter-spacing:-0.02em;margin:0 0 20px;text-wrap:balance;font-weight:700}
+h2{font-size:clamp(26px,3.4vw,40px);line-height:1.1;letter-spacing:-0.015em;margin:0 0 14px;text-wrap:balance;font-weight:700}
+h3{font-size:19px;line-height:1.25;margin:14px 0 8px;font-weight:700}
+p{margin:0}
+.lead{font-size:clamp(17px,2vw,20px);line-height:1.5;max-width:640px;margin:0 0 28px;color:var(--muted)}
+.band.navy .lead{color:var(--on-navy-muted)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px}
+.forms{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:24px;color:var(--ink)}
+.card p{line-height:1.5;color:var(--muted);font-size:16px}
+.band.navy .card{background:var(--navy-2);border-color:rgba(242,235,221,0.14);color:var(--on-navy)}
+.band.navy .card p{color:var(--on-navy-muted)}
+.num{width:36px;height:36px;border-radius:50%;background:var(--navy);color:var(--beige);display:flex;align-items:center;justify-content:center;font-weight:700}
+.tag{display:inline-block;padding:4px 10px;border-radius:999px;background:var(--beige-2);color:var(--ink);font-size:13px;font-weight:700}
+.meta{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:18px}
+.meta span{display:block;font-size:14px;color:var(--muted)}
+.meta b{display:block;font-size:20px;color:var(--ink)}
+.price{margin-top:18px;font-weight:700;font-size:16px;color:var(--ink)}
+.total{margin-top:18px;padding-top:14px;border-top:1px solid var(--line);font-weight:700;font-size:17px;color:var(--ink)}
+.btn-row{display:flex;flex-wrap:wrap;gap:12px}
+.btn{display:inline-flex;align-items:center;justify-content:center;padding:14px 22px;border-radius:8px;border:0;font-size:16px;font-weight:700;cursor:pointer}
+.btn-light{background:var(--beige);color:var(--navy)}
+.btn-ghost{background:transparent;color:var(--on-navy);box-shadow:inset 0 0 0 2px var(--on-navy)}
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:36px}
+.chip{padding:8px 14px;border-radius:999px;background:rgba(242,235,221,0.1);color:var(--on-navy);font-size:15px;box-shadow:inset 0 0 0 1px rgba(242,235,221,0.3)}
+.field{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
+.field label{font-size:14px;font-weight:700}
+.field input,.field select{padding:12px 14px;border-radius:8px;border:1px solid var(--line);background:#FFFDF8;color:var(--ink);font-size:16px;width:100%}
+.form-btn{margin-top:6px;width:100%}
+.note{margin-top:24px;padding:16px 18px;border-radius:8px;background:var(--beige-2);color:var(--ink);font-size:15px;line-height:1.5}
+.foot{padding:28px 24px;background:var(--beige);color:var(--muted);font-size:14px;border-top:1px solid var(--line)}
+@media (prefers-reduced-motion: no-preference){
+.view.active{animation:fade .35s ease}
+}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<header class="top">
+<a class="brand" href="#inicio"><span class="mark"></span>Pro Talento</a>
+<nav class="nav" aria-label="Principal">
+<a class="nav-item" href="#inicio" data-nav="inicio" aria-current="page">Inicio</a>
+<a class="nav-item" href="#empresas" data-nav="empresas">Para empresas</a>
+<a class="nav-item" href="#estudiantes" data-nav="estudiantes">Para estudiantes</a>
+<a class="nav-item" href="#proyectos" data-nav="proyectos">Proyectos</a>
+<a class="nav-item" href="#registro" data-nav="registro">Registro</a>
+</nav>
+</header>
+
+<main>
+
+<div class="view active" id="inicio">
+<section class="band navy hero">
+<div class="wrap">
+<h1>Talento universitario para proyectos reales de tu empresa</h1>
+<p class="lead">Pro Talento conecta a PYMES con estudiantes de CUCEA que pueden aportar en proyectos de 48 horas a 6 semanas, con 10 a 15 horas por semana.</p>
+<div class="btn-row">
+<a class="btn btn-light" href="#empresas">Soy empresa</a>
+<a class="btn btn-ghost" href="#estudiantes">Soy estudiante</a>
+</div>
+<div class="chips">
+<span class="chip">Proyecto publicado</span>
+<span class="chip">Talento verificado</span>
+<span class="chip">Pago protegido</span>
+</div>
+</div>
+</section>
+<section class="band">
+<div class="wrap">
+<h2>Cómo funciona</h2>
+<p class="lead">Cuatro pasos para contratar talento por proyecto, sin perder el control del pago ni de la entrega.</p>
+<div class="grid">
+<article class="card"><span class="num">1</span><h3>Publicas el proyecto</h3><p>Describes el alcance, el área y el plazo que necesitas.</p></article>
+<article class="card"><span class="num">2</span><h3>Eliges talento verificado</h3><p>Revisamos el kárdex y la prueba práctica de cada estudiante antes de que pueda postularse.</p></article>
+<article class="card"><span class="num">3</span><h3>Pagas en custodia</h3><p>El pago queda protegido hasta que apruebas la entrega.</p></article>
+<article class="card"><span class="num">4</span><h3>Recibes la entrega</h3><p>Revisas el trabajo, pides correcciones si hace falta y el estudiante recibe su constancia.</p></article>
+</div>
+</div>
+</section>
+<section class="band navy">
+<div class="wrap">
+<h2>Empieza hoy</h2>
+<p class="lead">Publica tu primer proyecto o crea tu cuenta de estudiante.</p>
+<div class="btn-row">
+<a class="btn btn-light" href="#empresas">Para empresas</a>
+<a class="btn btn-ghost" href="#registro">Crear cuenta</a>
+</div>
+</div>
+</section>
+</div>
+
+<div class="view" id="empresas">
+<section class="band navy hero">
+<div class="wrap">
+<h1>Talento para tu PYME, proyecto por proyecto</h1>
+<p class="lead">Defines el trabajo que necesitas y contratas a un estudiante con formación en esa área. Tú decides el alcance, el plazo y cuándo aprobar la entrega.</p>
+<div class="btn-row">
+<a class="btn btn-light" href="#registro">Crear cuenta de empresa</a>
+</div>
+</div>
+</section>
+<section class="band">
+<div class="wrap">
+<h2>Lo que recibes</h2>
+<p class="lead">Cada proyecto tiene reglas claras desde el inicio, para que el pago y la entrega no dependan de la buena fe de nadie.</p>
+<div class="grid">
+<article class="card"><h3>Proyectos con alcance claro</h3><p>Cada proyecto tiene un entregable, un plazo y un costo definido antes de empezar.</p></article>
+<article class="card"><h3>Pago protegido</h3><p>El dinero queda en custodia. Tienes 5 días hábiles para revisar la entrega y 3 días para pedir correcciones.</p></article>
+<article class="card"><h3>Constancia del estudiante</h3><p>Al cerrar el proyecto, el estudiante recibe su constancia desde la plataforma.</p></article>
+</div>
+</div>
+</section>
+<section class="band navy">
+<div class="wrap">
+<h2>Cuánto cuesta</h2>
+<p class="lead">La comisión es de 15 % del valor del proyecto, con un mínimo de $250 MXN. Se cobra al contratar, junto con los honorarios.</p>
+<div class="grid">
+<article class="card">
+<span class="tag">Ejemplo 1</span>
+<div class="meta">
+<div><span>Honorarios</span><b>$1,000 MXN</b></div>
+<div><span>Comisión</span><b>$250 MXN</b></div>
+</div>
+<p class="total">Total a pagar: $1,250 MXN</p>
+</article>
+<article class="card">
+<span class="tag">Ejemplo 2</span>
+<div class="meta">
+<div><span>Honorarios</span><b>$2,000 MXN</b></div>
+<div><span>Comisión</span><b>$300 MXN</b></div>
+</div>
+<p class="total">Total a pagar: $2,300 MXN</p>
+</article>
+</div>
+</div>
+</section>
+</div>
+
+<div class="view" id="estudiantes">
+<section class="band navy hero">
+<div class="wrap">
+<h1>Pon en práctica lo que estudias en proyectos reales</h1>
+<p class="lead">Trabajas en proyectos de tu área, con registro gratuito y una carga de 10 a 15 horas por semana.</p>
+<div class="btn-row">
+<a class="btn btn-light" href="#registro">Crear cuenta de estudiante</a>
+</div>
+</div>
+</section>
+<section class="band">
+<div class="wrap">
+<h2>Requisitos para entrar</h2>
+<p class="lead">Revisamos estos puntos antes de activar tu perfil, para que cada empresa trabaje con talento verificado.</p>
+<div class="grid">
+<article class="card"><h3>Estudiante activo</h3><p>Debes estar inscrito y activo en CUCEA, Universidad de Guadalajara.</p></article>
+<article class="card"><h3>Kárdex verificado</h3><p>Revisamos que tengas más del 50 % de tus créditos aprobados.</p></article>
+<article class="card"><h3>Disponibilidad</h3><p>Entre 10 y 15 horas por semana, según la duración del proyecto.</p></article>
+<article class="card"><h3>Áreas de trabajo</h3><p>Administración, Diseño, Gestión, Investigación o Marketing.</p></article>
+</div>
+</div>
+</section>
+<section class="band navy">
+<div class="wrap">
+<h2>Constancia al terminar</h2>
+<p class="lead">Al concluir cada proyecto, la constancia se entrega desde la plataforma. Tu proceso de registro comienza con una cuenta y termina con un perfil listo para postularte.</p>
+<div class="btn-row">
+<a class="btn btn-light" href="#registro">Ver el proceso de registro</a>
+</div>
+</div>
+</section>
+</div>
+
+<div class="view" id="proyectos">
+<section class="band navy hero">
+<div class="wrap">
+<h1>Proyectos disponibles</h1>
+<p class="lead">Ejemplos de proyectos que una empresa puede publicar. En este prototipo los datos son ilustrativos.</p>
+</div>
+</section>
+<section class="band">
+<div class="wrap">
+<div class="grid">
+<article class="card">
+<span class="tag">Investigación</span>
+<h3>Análisis de competencia local</h3>
+<div class="meta">
+<div><span>Duración</span><b>3 semanas</b></div>
+<div><span>Horas por semana</span><b>12</b></div>
+</div>
+<p class="price">Honorarios de ejemplo: $1,000 MXN</p>
+</article>
+<article class="card">
+<span class="tag">Diseño</span>
+<h3>Diseño de identidad visual</h3>
+<div class="meta">
+<div><span>Duración</span><b>2 semanas</b></div>
+<div><span>Horas por semana</span><b>10</b></div>
+</div>
+<p class="price">Honorarios de ejemplo: $2,000 MXN</p>
+</article>
+<article class="card">
+<span class="tag">Administración</span>
+<h3>Modelo financiero básico</h3>
+<div class="meta">
+<div><span>Duración</span><b>2 semanas</b></div>
+<div><span>Horas por semana</span><b>15</b></div>
+</div>
+<p class="price">Honorarios de ejemplo: $2,000 MXN</p>
+</article>
+<article class="card">
+<span class="tag">Gestión</span>
+<h3>Organización de procesos</h3>
+<div class="meta">
+<div><span>Duración</span><b>6 semanas</b></div>
+<div><span>Horas por semana</span><b>10</b></div>
+</div>
+<p class="price">Honorarios de ejemplo: $2,000 MXN</p>
+</article>
+<article class="card">
+<span class="tag">Marketing</span>
+<h3>Plan de redes sociales</h3>
+<div class="meta">
+<div><span>Duración</span><b>4 semanas</b></div>
+<div><span>Horas por semana</span><b>10</b></div>
+</div>
+<p class="price">Honorarios de ejemplo: $1,000 MXN</p>
+</article>
+</div>
+</div>
+</section>
+</div>
+
+<div class="view" id="registro">
+<section class="band navy hero">
+<div class="wrap">
+<h1>Crea tu cuenta</h1>
+<p class="lead">Elige el perfil que corresponde a tu caso. Este prototipo muestra el flujo; el registro real se conectará en la siguiente etapa.</p>
+</div>
+</section>
+<section class="band">
+<div class="wrap">
+<h2>Proceso de registro del estudiante</h2>
+<p class="lead">Son cuatro pasos. Cada uno tiene una función clara antes de que tu perfil aparezca en los proyectos.</p>
+<div class="grid">
+<article class="card"><span class="num">1</span><h3>Crear cuenta</h3><p>Registras tu nombre y tu correo institucional.</p></article>
+<article class="card"><span class="num">2</span><h3>Verificar kárdex</h3><p>Revisamos que tengas más del 50 % de tus créditos aprobados.</p></article>
+<article class="card"><span class="num">3</span><h3>Prueba práctica</h3><p>Respondes una prueba corta del área que elegiste.</p></article>
+<article class="card"><span class="num">4</span><h3>Perfil listo</h3><p>Tu perfil queda visible para los proyectos de tu área.</p></article>
+</div>
+</div>
+</section>
+<section class="band navy">
+<div class="wrap">
+<h2>Crear cuenta</h2>
+<p class="lead">Completa los datos del perfil que te corresponde.</p>
+<div class="forms">
+<article class="card">
+<h3>Empresa</h3>
+<form class="signup">
+<div class="field"><label for="empresa-nombre">Nombre de la empresa</label><input id="empresa-nombre" type="text" autocomplete="organization" required></div>
+<div class="field"><label for="empresa-contacto">Nombre de contacto</label><input id="empresa-contacto" type="text" autocomplete="name" required></div>
+<div class="field"><label for="empresa-correo">Correo de contacto</label><input id="empresa-correo" type="email" autocomplete="email" required></div>
+<button class="btn btn-light form-btn" type="submit">Crear cuenta de empresa</button>
+</form>
+</article>
+<article class="card">
+<h3>Estudiante</h3>
+<form class="signup">
+<div class="field"><label for="estudiante-nombre">Nombre completo</label><input id="estudiante-nombre" type="text" autocomplete="name" required></div>
+<div class="field"><label for="estudiante-correo">Correo institucional</label><input id="estudiante-correo" type="email" autocomplete="email" required></div>
+<div class="field"><label for="estudiante-area">Área de interés</label><select id="estudiante-area"><option>Administración</option><option>Diseño</option><option>Gestión</option><option>Investigación</option><option>Marketing</option></select></div>
+<button class="btn btn-light form-btn" type="submit">Crear cuenta de estudiante</button>
+</form>
+</article>
+</div>
+<p class="note" id="signup-msg" role="status" hidden>Prototipo: este formulario todavía no guarda datos. El registro real se conectará en la siguiente etapa.</p>
+</div>
+</section>
+</div>
+
+</main>
+
+<footer class="foot">
+<div class="wrap">Pro Talento · Prototipo de sitio web</div>
+</footer>
+
+<script>
+(function () {
+  var views = ["inicio", "empresas", "estudiantes", "proyectos", "registro"];
+  var msg = document.getElementById("signup-msg");
+
+  function show() {
+    var name = location.hash.slice(1);
+    if (views.indexOf(name) === -1) name = "inicio";
+    document.querySelectorAll(".view").forEach(function (v) {
+      v.classList.toggle("active", v.id === name);
+    });
+    document.querySelectorAll(".nav-item").forEach(function (a) {
+      if (a.getAttribute("data-nav") === name) {
+        a.setAttribute("aria-current", "page");
+      } else {
+        a.removeAttribute("aria-current");
+      }
+    });
+    msg.hidden = true;
+    window.scrollTo(0, 0);
+  }
+
+  window.addEventListener("hashchange", show);
+  show();
+
+  document.querySelectorAll("form.signup").forEach(function (f) {
+    f.addEventListener("submit", function (e) {
+      e.preventDefault();
+      msg.hidden = false;
+    });
+  });
+})();
+</script>
+</body>
+</html>
